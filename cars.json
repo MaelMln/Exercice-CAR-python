@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "tankCapacity": 5,
+    "kmTraveled": 0,
+    "wheelOk": true,
+    "color": "blue",
+    "rank": 4
+  },
+  {
+    "id": 2,
+    "tankCapacity": 7,
+    "kmTraveled": 0,
+    "wheelOk": true,
+    "color": "green",
+    "rank": 3
+  },
+  {
+    "id": 3,
+    "tankCapacity": 3,
+    "kmTraveled": 0,
+    "wheelOk": true,
+    "color": "yellow",
+    "rank": 2
+  },
+  {
+    "id": 4,
+    "tankCapacity": 10,
+    "kmTraveled": 0,
+    "wheelOk": true,
+    "color": "red",
+    "rank": 1
+  }
+]
