@@ -1,92 +1,73 @@
 from dataclasses import dataclass
+from enum import IntFlag, auto
+from raceParams import rules
 import random
-from raceParams import punctureChance, consumptionChance, distanceTraveledWhileDamaged, distanceTraveled, \
-    gasConsumption, repairChance, refuelChance, distanceToWinTheRace
 
-def prob(p):
+
+def roll(p: float) -> bool:
     return random.random() < p
+
+
+class FlagEvent(IntFlag):
+    NONE = 0
+    PUNCTURE = auto()
+    REPAIRED = auto()
+    NO_REPAIR = auto()
+    REFUELED = auto()
+    NO_REFUEL = auto()
+    OUT_OF_GAS = auto()
+    MOVED = auto()
+    TURBO = auto()
+    FINISHED = auto()
 
 
 @dataclass
 class Car:
     id: int
-    tankCapacity: int
-    kmTraveled: int
-    wheelOk: bool = True
-    color: str = "undefined"
+    pilot: str
+    color: str
+    tank: int
+    km: int = 0
     rank: int = 0
-    sound: str = "VROUUUUUUM"
-    turbo: bool = True
+    wheel_ok: bool = True
+    turbo_ok: bool = True
     damaged: bool = False
-    refueled: bool = False
-    win: bool = False
 
-    def drive(self):
-        if not self.wheelOk:
-            if not self.tryRepairWheel():
-                return self
+    def drive(self, turbo: bool = False) -> FlagEvent:
+        ev = FlagEvent.NONE
 
-        if self.tankCapacity == 0:
-            if not self.tryRefuel():
-                return self
+        if not self.wheel_ok:
+            if roll(rules.repair):
+                self.wheel_ok = True
+                ev |= FlagEvent.REPAIRED
+            else:
+                ev |= FlagEvent.NO_REPAIR
+                return ev
 
-        if prob(punctureChance):
-            self.wheelOk = False
-            print(f"La voiture {self.color} a crevé ses pneus !")
-            return self
+        if self.tank == 0:
+            if roll(rules.refuel):
+                self.tank += rules.gas * 2
+                ev |= FlagEvent.REFUELED
+            else:
+                ev |= FlagEvent.NO_REFUEL | FlagEvent.OUT_OF_GAS
+                return ev
 
-        prev_km = self.kmTraveled
-        if prob(consumptionChance):
-            self.tankCapacity -= gasConsumption
+        if roll(rules.puncture):
+            self.wheel_ok = False
+            ev |= FlagEvent.PUNCTURE
+            return ev
 
+        if roll(rules.consume):
+            self.tank = max(0, self.tank - rules.gas)
+
+        d = rules.step * (2 if turbo else 1)
         if self.damaged:
-            self.kmTraveled += distanceTraveledWhileDamaged
+            d = rules.step_dmg
             self.damaged = False
-        else:
-            self.kmTraveled += distanceTraveled
+        self.km += d
+        ev |= FlagEvent.MOVED
+        if turbo: ev |= FlagEvent.TURBO
 
-        delta = self.kmTraveled - prev_km
-        self.makeSound()
-        print(f"La voiture {self.color} a avancé de {delta} km (total : {self.kmTraveled} km)")
-
-        if self.kmTraveled >= distanceToWinTheRace:
-            self.win = True
-        return self
-
-    def turboDrive(self):
-        if self.kmTraveled >= distanceToWinTheRace / 2:
-            if self.tankCapacity < gasConsumption * 2:
-                print("Not enough tank capacity to activate turbo")
-                return self
-
-            prev_km = self.kmTraveled
-            self.kmTraveled += distanceTraveled * 2
-            self.tankCapacity -= gasConsumption * 2
-            self.turbo = False
-
-            delta = self.kmTraveled - prev_km
-            print(f"La voiture {self.color} déclenche le turbo et avance de {delta} km (total : {self.kmTraveled} km)")
-
-            if self.kmTraveled >= distanceToWinTheRace:
-                self.win = True
-        return self
-
-    def makeSound(self):
-        print(f"{self.sound} {self.color}")
-
-    def tryRepairWheel(self) -> bool:
-        if prob(repairChance):
-            self.wheelOk = True
-            print(f"La voiture {self.color} regonfle ses pneus !")
-            return True
-        print(f"La voiture {self.color} rate la réparation de ses pneus !")
-        return False
-
-    def tryRefuel(self) -> bool:
-        if prob(refuelChance):
-            self.tankCapacity += gasConsumption * 2
-            self.refueled = True
-            print(f"La voiture {self.color} remet de l'essence !")
-            return True
-        print(f"La voiture {self.color} verse son essence à côté du réservoir !")
-        return False
+        if self.km >= rules.finish:
+            ev |= FlagEvent.FINISHED
+        return ev

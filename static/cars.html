@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Gestion des voitures</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="flex items-center justify-between p-4 bg-indigo-600 text-white">
+	<h1 class="text-2xl font-bold">🚗 Voitures</h1>
+	<a href="/static/index.html" class="underline">Retour à la course</a>
+</header>
+
+<main class="flex-1 p-6 space-y-6">
+	<section>
+		<h2 class="text-lg font-semibold mb-2">Créer / Modifier</h2>
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+			<input id="fId" type="number" placeholder="ID (auto)" class="border p-2 rounded" disabled>
+			<input id="fPilot" type="text" placeholder="Pilote" class="border p-2 rounded">
+			<select id="fColor" class="border p-2 rounded"></select>
+			<input id="fTank" type="number" placeholder="Réservoir (L)" class="border p-2 rounded">
+		</div>
+		<div class="mt-3 space-x-2">
+			<button id="btnCreate" class="px-3 py-1 bg-emerald-600 text-white rounded">Créer</button>
+			<button id="btnUpdate" class="px-3 py-1 bg-indigo-600 text-white rounded hidden">Mettre à jour</button>
+			<button id="btnDelete" class="px-3 py-1 bg-red-600 text-white rounded hidden">Supprimer</button>
+			<button id="btnCancel" class="px-3 py-1 border rounded hidden">Annuler</button>
+		</div>
+	</section>
+
+	<section>
+		<h2 class="text-lg font-semibold mb-2">Liste</h2>
+		<table class="w-full text-sm border-collapse">
+			<thead class="bg-gray-200">
+			<tr>
+				<th class="border px-2 py-1">ID</th>
+				<th class="border px-2 py-1">Pilote</th>
+				<th class="border px-2 py-1">Couleur</th>
+				<th class="border px-2 py-1">Réservoir</th>
+			</tr>
+			</thead>
+			<tbody id="carsTbody"></tbody>
+		</table>
+	</section>
+</main>
+
+<script src="/static/cars.js"></script>
+</body>
+</html>

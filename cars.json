@@ -1,34 +1,65 @@
 [
-  {
-    "id": 1,
-    "tankCapacity": 5,
-    "kmTraveled": 0,
-    "wheelOk": true,
-    "color": "blue",
-    "rank": 4
-  },
-  {
-    "id": 2,
-    "tankCapacity": 7,
-    "kmTraveled": 0,
-    "wheelOk": true,
-    "color": "green",
-    "rank": 3
-  },
-  {
-    "id": 3,
-    "tankCapacity": 3,
-    "kmTraveled": 0,
-    "wheelOk": true,
-    "color": "yellow",
-    "rank": 2
-  },
-  {
-    "id": 4,
-    "tankCapacity": 10,
-    "kmTraveled": 0,
-    "wheelOk": true,
-    "color": "red",
-    "rank": 1
-  }
+	{
+		"id": 5,
+		"pilot": "GotthamGoFast",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "cyan",
+		"rank": 1
+	},
+	{
+		"id": 4,
+		"pilot": "JeanLewis",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "red",
+		"rank": 2
+	},
+	{
+		"id": 2,
+		"pilot": "ChouMareur",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "green",
+		"rank": 3
+	},
+	{
+		"id": 3,
+		"pilot": "EdouardLeclerc",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "yellow",
+		"rank": 4
+	},
+	{
+		"id": 1,
+		"pilot": "MaRioDeJaneiro",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "blue",
+		"rank": 5
+	},
+	{
+		"id": 8,
+		"pilot": "ChouArtsEtNigger",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "teal",
+		"rank": 6
+	},
+	{
+		"id": 9,
+		"pilot": "BrousseLit",
+		"tankCapacity": 10,
+		"kmTraveled": 0,
+		"wheelOk": true,
+		"color": "orange",
+		"rank": 7
+	}
 ]
