@@ -9,7 +9,7 @@ cp .env.example .env
 
 Puis ouvrir http://localhost:8000/static/index.html
 
-Exercice CAR
+# Exercice CAR
 
 On souhaite simuler une course entre 4 voitures. Voici les éléments qui composent une voiture : le nombre de litre
 d'essence son nombre de kilomètres parcouru l'état de crevaison des pneus (on cherche à savoir si les pneus sont crevés)
