@@ -1,3 +1,14 @@
+# 🏎️ Race‑Cars – Projet pédagogique
+
+Petit backend FastAPI + front statique Tailwind pour simuler une course de voitures.
+
+## Lancer en local
+
+cp .env.example .env
+./scripts/run.sh        # mode dev (reload)
+
+Puis ouvrir http://localhost:8000/static/index.html
+
 Exercice CAR
 
 On souhaite simuler une course entre 4 voitures. Voici les éléments qui composent une voiture : le nombre de litre
